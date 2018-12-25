@@ -1,0 +1,24 @@
+# -*- coding: UTF-8 -*-
+
+import urllib.request
+import  urllib.parse
+
+#利用urllib（实现请求的发送）抓取python官网源代码
+response = urllib.request.urlopen('https://www.python.org')
+print(response.read().decode('utf-8'))
+
+#利用type()方法输出响应的类型
+print('$$$$$$$$$$$$$$$$$$$$$$$$$$type()$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+print(type(response))
+
+#利用read()方法得到返回的网页内容，调用status属性得到返回结果的状态码，如404
+print('$$$$$$$$$$$$$$$$$$$$$$$$read() status$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+print('status:',response.status)
+print('headers:',response.getheaders())
+print('header(Server):',response.getheader('Server'))
+
+#测试POST请求
+print('$$$$$$$$$$$$$$$$$$$$$$$$POST$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+data = bytes(urllib.parse.urlencode({'word':'hello'}), encoding='utf8')
+response = urllib.request.urlopen('http://httpbin.org/post',data=data)
+print(response.read())

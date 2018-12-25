@@ -1,0 +1,15 @@
+# -*- coding: UTF-8 -*-
+
+from flask import Flask
+
+#Flask 是一个轻量级的 Web 服务程序，它简单、易用、灵活，这里主要用来做一些 API 服务
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+
+if __name__=="__main__":
+    app.run()
+
+#运行完成在浏览器输入127.0.0.1:8888#
