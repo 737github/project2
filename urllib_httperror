@@ -1,0 +1,16 @@
+from urllib import request,error
+import socket
+
+try:
+    response = request.urlopen('https://cuiqingcai.com/index.htm', timeout=0.01)
+    #response = request.urlopen('https://www.baidu.com', timeout=0.001)
+except error.HTTPError as httperror:
+    print("http error occured")
+    print(httperror.reason, httperror.code, httperror.headers, sep='\n')
+except error.URLError as urlerror:
+    print("url error occured")
+    print(urlerror.reason, type(urlerror.reason))
+    if isinstance(urlerror.reason, socket.timeout):
+        print('please re-try!')
+else:
+    print('Request successfully!')
