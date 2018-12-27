@@ -1,0 +1,61 @@
+import requests
+from urllib.error import URLError
+import re
+
+"""
+r = requests.get('http://www.baidu.com')
+print(type(r))
+print(r.status_code)
+print(type(r.text))
+print(r.text)
+print(r.cookies)
+
+try:
+    url = 'http://httpbin.org/get'
+    r2 = requests.get(url)
+except URLError as e:
+    print(e.reason())
+else:
+    print("r2:", r2.text)
+
+data = {
+    'name': 'germey',
+    'age': 22
+}
+url2 = 'http://www.httpbin.org/get'
+r3 = requests.get(url2, params=data)
+print("r3:", r3.text)
+"""
+
+#抓取知乎需要浏览器标识heads,否则知乎会禁止抓取
+"""
+headers = {
+    'User-Agent': 'Mozilla/5.0(Macintosh; Inter Mac OS X 10_11_4) AppleWebkit'
+                  '/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537'
+                  '.36'
+}
+
+url3 = 'https://www.zhihu.com/explore'
+r4 = requests.get(url3, headers=headers)
+patten = re.compile('explore-feed.*?question_link.*?>(.*?)</a>', re.S)
+title = re.findall(patten, r4.text)
+print("知乎：", title)
+"""
+
+#抓取站点图标:favicon.ico
+
+url4 = 'http://v.qq.com/favicon.ico'
+r5 = requests.get(url4)
+
+#直接打印会获取乱码，b开头代表是bytes类型的数据
+#print("Github:", r5.text)
+#print("Github:", r5.content)
+
+#使用open()方法
+
+#'wb'的意思是以二进制格式打开一个文件只用于写入，如果该文件已存在则打开文件，并从开头开始编辑，
+# 即原有内容会被删除。如果该文件不存在，创建新文件。
+with open('favicon.ico', 'wb') as f:
+    f.write(r5.content)  #在代码目录project2可以找到favicon.ico图标
+
+

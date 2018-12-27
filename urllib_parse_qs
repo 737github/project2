@@ -1,0 +1,12 @@
+# -*- coding: UTF-8 -*-
+from urllib.parse import parse_qs, parse_qsl
+
+
+#转换为字典 parse_qs
+query = 'name=germey&age=22'
+print("dict", parse_qs(query))
+
+#转换为元祖 parse_qsl
+
+query2 = 'name=germey&age=22'
+print("tup", parse_qsl(query2))

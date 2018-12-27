@@ -1,0 +1,9 @@
+from urllib.parse import urlencode
+
+parms = {
+    'name': 'germey',
+    'age': 22
+}
+base_url = 'http://www.baidu.com'
+url = base_url + urlencode(parms)
+print(url)
