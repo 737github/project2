@@ -1,0 +1,43 @@
+# -*- coding: UTF-8 -*-
+import pymysql
+
+"""
+#创建数据库spider
+db = pymysql.connect(host='localhost', user='root', password='123456', port=3306)
+cursor = db.cursor()
+cursor.execute('SELECT VERSION()')
+data = cursor.fetchone()
+print('Database version:', data)
+cursor.execute("CREATE DATABASE spiders DEFAULT CHARACTER SET utf8")
+db.close()
+"""
+
+"""
+创建表students
+db = pymysql.connect(host='localhost', user='root', password='123456',
+                     port=3306, db='spiders')
+cursor = db.cursor()
+sql = 'CREATE TABLE IF NOT EXISTS STUDENTS (ID VARCHAR (255) NOT NULL,' \
+      'NAME  VARCHAR (255) NOT NULL ,AGE INT NOT NULL ,PRIMARY KEY (ID))'
+cursor.execute(sql)
+db.close()
+"""
+
+"""
+#查询
+db = pymysql.connect(host='localhost', user='root', password='123456',port=3306, db='spiders')
+cursor = db.cursor()
+sql = 'SELECT * FROM STUDENTS'
+try:
+    cursor.execute(sql)
+    print('Count:', cursor.rowcount)
+    one = cursor.fetchone()
+    print('One:', one)
+    results = cursor.fetchall()
+    print('Results:', results)
+    print('Result Type:', type(results))
+    for row in results:
+        print(row)
+except:
+    print('Error')
+"""

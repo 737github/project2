@@ -1,0 +1,58 @@
+# -*- coding: UTF-8 -*-
+import requests
+import re
+from requests.exceptions import *
+import time
+import json
+
+#1.抓取第一页的内容获得首页的源代码
+def get_first_page(url): #获取第一页源码固定写法,添加headers伪装
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) '
+                          'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'
+                          '65.0.3325.162 Safari/537.36'
+    }
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response.text
+        return None
+    except RequestException:
+        return None
+
+
+#2.利用正则表达式提取所需的内容
+def parse_first_page(html):
+    pattern = re.compile(
+        '<dd>.*?board-index.*?>(\d+)</i>.*?data-src="(.*?)".*?name"><a'
+        + '.*?>(.*?)</a>.*?star">(.*?)</p>.*?releasetime">(.*?)</p>'
+        + '.*?integer">(.*?)</i>.*?fraction">(.*?)</i>.*?</dd>', re.S)
+    #re.S的作用:正则表达式会将这个字符串作为一个整体，在整体中进行匹配
+    items = re.findall(pattern, html)
+    for item in items:
+        yield{
+            '排名': item[0],
+            '图片': item[1],
+            '名字': item[2],
+            '演员': item[3].strip()[3:],
+            '时间': item[4].strip()[5:],
+            '评分': item[5] + item[6]
+        }
+
+#3.将获取的内容写入本地文本文档
+def write_to_file(content):
+    with open('result.txt', 'a', encoding='utf-8') as f:
+        f.write(json.dumps(content,ensure_ascii=False) + '\n')
+
+def main(offset): #定义main方法执行爬取
+    url = 'http://maoyan.com/board/4?offset=' + str(offset)
+    html = get_first_page(url)
+    for item in parse_first_page(html):
+        print(item)
+        write_to_file(item)
+
+#网页中每向下翻一页,地址栏中offset+10
+if __name__ == '__main__':
+    for i in range(10):
+        main(offset=i * 10)
+        time.sleep(1) #防止网站反爬虫,增加1秒延时等待
