@@ -9,27 +9,27 @@ charset = 'utf8'
 
 # Create table
 def create_table():
-	db = pymysql.connect(host=host, user=user, password=password, port=port, db=db, charset=charset)
-	cursor.db.cursor()
-	sql = 'CREATE TABLE IF NOT EXISTS TABLENAME (COUMA VARCHAR(255) NOT NULL, COUMB(255) NOT NULL,COUMC INT NOT NULL,PRIMARY KEY(COUMA))'
-	cursor.execute(sql)
-	db.close()
+    db = pymysql.connect(host=host, user=user, password=password, port=port, db=db, charset=charset)
+    cursor.db.cursor()
+    sql = 'CREATE TABLE IF NOT EXISTS TABLENAME (COUMA VARCHAR(255) NOT NULL, COUMB(255) NOT NULL,COUMC INT NOT NULL,PRIMARY KEY(COUMA))'
+    cursor.execute(sql)
+    db.close()
 	
 #Insert data
 def insert_tabel():
-	data = {
-		'COUMA': '1',
-		'COUMB': '2',
-		'COUMC': 3
-	}
-	table = 'TABLENAME'
-	keys = ', '.join(data.keys())
-	values = ', '.join(['%s'] * len(data)) 
-	sql = 'INSERT INTO{table}({keys}) VALUES（{values}）'.format(table=table, keys=keys, values=values)
-	try:
-		if cursor.execute(sql,tuple(data.values())):
-			print('Successful')
-	except:
-		print('Faild')
-		db.rollback()
-	db.close()
+    data = {
+        'COUMA': '1',
+        'COUMB': '2',
+	'COUMC': 3
+    }
+    table = 'TABLENAME'
+    keys = ', '.join(data.keys())
+    values = ', '.join(['%s'] * len(data)) 
+    sql = 'INSERT INTO{table}({keys}) VALUES（{values}）'.format(table=table, keys=keys, values=values)
+    try:
+        if cursor.execute(sql,tuple(data.values())):
+            print('Successful')
+    except:
+        print('Faild')
+	db.rollback()
+    db.close()
