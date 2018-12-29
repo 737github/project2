@@ -34,3 +34,23 @@ def insert_tabel():
 	db.rollback()
     db.close()
 
+#update data
+def insert_tabel():
+    data = {
+        'COUMA': '1',
+        'COUMB': '2',
+	'COUMC': 3
+    }
+    table = 'TABLENAME'
+    keys = ', '.join(data.keys())
+    values = ', '.join(['%s'] * len(data))    
+    sql = 'INSERT INTO{table}({keys}) VALUSE ({values}) ON DUPLICATE KEY UPDATE'.format(table=table, keys=keys, values=values)
+    update =', '.join(["{key}=%s".format(key=key) for key in data])
+    sql += update
+    try:
+        if cursor.execute(sql,tuple(data.values())):
+            print('Successful')
+    except:
+        print('Faild')
+	db.rollback()
+    db.close()
