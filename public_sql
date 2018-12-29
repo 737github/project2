@@ -20,7 +20,7 @@ def insert_tabel():
     data = {
         'COUMA': '1',
         'COUMB': '2',
-	'COUMC': 3
+	    'COUMC': 3
     }
     table = 'TABLENAME'
     keys = ', '.join(data.keys())
@@ -39,7 +39,7 @@ def insert_tabel():
     data = {
         'COUMA': '1',
         'COUMB': '2',
-	'COUMC': 3
+	    'COUMC': 3
     }
     table = 'TABLENAME'
     keys = ', '.join(data.keys())
