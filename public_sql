@@ -34,7 +34,3 @@ def insert_tabel():
 	db.rollback()
     db.close()
 
-add branch
-
-1234445
-55433
