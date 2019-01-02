@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import pymysql
 
-"""
+
 #创建数据库spider
 db = pymysql.connect(host='localhost', user='root', password='123456', port=3306)
 cursor = db.cursor()
@@ -10,10 +10,10 @@ data = cursor.fetchone()
 print('Database version:', data)
 cursor.execute("CREATE DATABASE spiders DEFAULT CHARACTER SET utf8")
 db.close()
-"""
 
-"""
-创建表students
+--------------------------------------------------------------------------------
+
+#创建表students
 db = pymysql.connect(host='localhost', user='root', password='123456',
                      port=3306, db='spiders')
 cursor = db.cursor()
@@ -21,18 +21,14 @@ sql = 'CREATE TABLE IF NOT EXISTS STUDENTS (ID VARCHAR (255) NOT NULL,' \
       'NAME  VARCHAR (255) NOT NULL ,AGE INT NOT NULL ,PRIMARY KEY (ID))'
 cursor.execute(sql)
 db.close()
-"""
 
-
-
-
-
-
-
+--------------------------------------------------------------------------------
+#插入数据
 db = pymysql.connect(host='localhost', user='root', password='123456',
                      port=3306, db='spiders')
 cursor = db.cursor()
-sql = 'INSERT INTO MAOYAN(ID, MOVIE_NAME, MOVIE_ACTOR, MOVIE_TIME, MOVIE_SCORE) VALUES (%S, %S, %S, %S)'
+sql = 'INSERT INTO MAOYAN(ID, MOVIE_NAME, MOVIE_ACTOR, MOVIE_TIME, MOVIE_SCORE)' \
+      ' VALUES (%S, %S, %S, %S)'
 try:
     cursor.execute(sql, (ID, MOVIE_NAME, MOVIE_ACTOR, MOVIE_TIME, MOVIE_SCORE))
     db.commit()
@@ -40,12 +36,10 @@ except:
     db.rollback()
 db.close()
 
-
-
-
-"""
+--------------------------------------------------------------------------------
 #查询
-db = pymysql.connect(host='localhost', user='root', password='123456',port=3306, db='spiders')
+db = pymysql.connect(host='localhost', user='root', password='123456',port=3306,
+                     db='spiders')
 cursor = db.cursor()
 sql = 'SELECT * FROM STUDENTS'
 try:
@@ -60,4 +54,29 @@ try:
         print(row)
 except:
     print('Error')
-"""
+
+#利用fetchone()获取所有数据，逐条获取适用于大数据量
+sql = 'SELECT * FROM STUDENTS WHERE age >=20'
+try:
+    cursor.execute(sql)
+    print('Count:', cursor.rowcount)
+    row = cursor.fetchone()
+    while row:
+        print('Row:', row)
+        row = cursor.fetchone()
+except:
+    print('Error')
+--------------------------------------------------------------------------------
+#删除数据
+table = 'students'
+condition = 'age > 20'
+
+sql = 'DELETE FROM {table}' WHERE {condition}'.format(table=table, ' \
+                                             'condition=condition)
+try:
+    cursor.execute(sql)
+    db.commit()
+except:
+    db.rollback()
+
+db.close()

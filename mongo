@@ -1,0 +1,49 @@
+# -*- coding:utf-8 -*-
+import pymongo
+
+#连接Mongo DB
+client = pymongo.MongoClient(host='localhost', port=27017)
+
+#指定数据库两种写法
+#db = client.test
+db = client['test']
+
+#指定集合两种写法，声明一个collection对象
+#collection = db.students
+collection = db['students']
+"""
+#插入数据
+students = {
+    'id': '20170102',
+    'name': 'maco',
+    'age': 20,
+    'gender': 'male'
+}
+result = collection.insert_one(students)
+print('insert record:' +str(result))
+print('-------------------------------------------------------------------')
+"""
+
+#查询
+result2 = collection.find_one({'name': 'Jordan'})
+print('Check result:')
+print(type(result2))
+print(result2)
+print('-------------------------------------------------------------------')
+
+#多条查询用find()
+result3 = collection.find({'age': 20})
+print(result3)
+for res in result3:
+    print(res)
+print('-------------------------------------------------------------------')
+
+#查询大于20的
+result4 = collection.find({'age':{'$gt': 20}}) #比较符号详见page 217
+print('普通查询:' +str(result4))
+print('-------------------------------------------------------------------')
+
+#正则符号匹配查询
+result5 = collection.find({'name': {'$regex': '^M.*'}}) #正则符号详见page 218
+print('正则匹配:' +str(result5))
+print('-------------------------------------------------------------------')
