@@ -4,6 +4,7 @@ import re
 from requests.exceptions import *
 import time
 import json
+import  pymysql
 
 #1.抓取第一页的内容获得首页的源代码
 def get_first_page(url): #获取第一页源码固定写法,添加headers伪装
