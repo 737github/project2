@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from urllib.error import HTTPError
 
-
+"""
 #Added exception catch
 # @1:if prompted userWarning: No parser was explicitly specified,xxxxx--->add"html.parser"
 def getTitle(url):
@@ -33,6 +33,14 @@ bsobj2 = BeautifulSoup(html.read(), "html.parser")
 namelist = bsobj2.find_all("span", {"class":"green"}) #check soure code from Google browser @2
 for name in namelist:
     print(name.get_text())
+
+print("------------------------------------------------------------------------")
+"""
+#Get children() or descendants() or next_siblings()
+html = urlopen("http://www.pythonscraping.com/pages/page3.html")
+bsObj = BeautifulSoup(html.read(), "html.parser")
+for sibling in bsObj.find("table",{"id":"giftList"}).tr.next_siblings:
+    print(sibling)
 
 
 
