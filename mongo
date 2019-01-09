@@ -30,7 +30,7 @@ print('Check result:')
 print(type(result2))
 print(result2)
 print('-------------------------------------------------------------------')
-
+"""
 #多条查询用find()
 result3 = collection.find({'age': 20})
 print(result3)
@@ -47,3 +47,4 @@ print('-------------------------------------------------------------------')
 result5 = collection.find({'name': {'$regex': '^M.*'}}) #正则符号详见page 218
 print('正则匹配:' +str(result5))
 print('-------------------------------------------------------------------')
+"""
