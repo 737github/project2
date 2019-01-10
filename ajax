@@ -3,6 +3,7 @@ from urllib.parse import urlencode
 from pyquery import PyQuery as pq
 from pymongo import MongoClient
 
+#original url,Chrome-Headers-GENERAL
 base_url = 'https://m.weibo.cn/api/container/getIndex?'
 headers = {
     'Host': 'm.weibo.cn',
@@ -43,7 +44,7 @@ def parse_page(json, page: int):
                 item = item.get('mblog', {})
                 weibo = {}
                 weibo['id'] = item.get('id')
-                weibo['text'] = pq(item.get('text')).text()
+                weibo['text'] = pq(item.get('text')).text() # pq xxx.text():Remove HTML tags[refer to the JQuery.text()]
                 weibo['attitudes'] = item.get('attitudes_count')
                 weibo['comments'] = item.get('comments_count')
                 weibo['reposts'] = item.get('reposts_count')
